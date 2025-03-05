@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music, Shows, and Concerts Flashcards</title>
+    <style>
+:root {
+    --primary-color: #007AFF;
+    --secondary-color: #005ecb;
+    --background-color: #fafafa;
+    --shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 20px;
+    background-color: var(--background-color);
+    overflow-x: hidden;
+}
+
+/* Hamburger menu styling */
+.hamburger {
+    font-size: 24px;
+    cursor: pointer;
+    padding: 10px;
+    background-color: #f1f1f1;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+/* Vertical menu styling */
+#verticalMenu {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 250px; /* Fixed width for the menu */
+    background-color: #f1f1f1;
+    position: fixed;
+    height: 100%;
+    overflow: auto;
+    left: -250px; /* Hide the menu by default */
+    transition: left 0.3s ease; /* Smooth transition */
+    z-index: 999;
+    padding-top: 60px; /* Add padding to avoid overlap with hamburger menu */
+}
+
+#verticalMenu.active {
+    left: 0; /* Show the menu */
+}
+
+#verticalMenu li a {
+    display: block;
+    color: #000;
+    padding: 12px 16px;
+    text-decoration: none;
+}
+
+#verticalMenu li a.active {
+    background-color: #04AA6D;
+    color: white;
+}
+
+#verticalMenu li a:hover:not(.active) {
+    background-color: #555;
+    color: white;
+}
+
+/* Main content styling */
+#content {
+    margin-left: 0; /* No margin by default */
+    padding: 20px;
+    transition: margin-left 0.3s ease; /* Smooth transition */
+    padding-top: 60px; /* Add padding to avoid overlap with hamburger menu */
+    text-align: center;
+}
+
+#content.shifted {
+    margin-left: 250px; /* Shift content when menu is open */
+}
+
+/* Image and Dialogue Containers */
+.image-container,
+.dialogue-container {
+    margin-bottom: 30px;
+    width: 45%; /* Each container takes 45% of the width */
+    max-width: 500px; /* Limit maximum width */
+    margin-right: 20px; /* Add spacing between the containers */
+}
+
+/* Ensure the containers are displayed side by side */
+@media (min-width: 768px) {
+    .image-container,
+    .dialogue-container {
+        display: inline-block; /* Display side by side */
+        vertical-align: top; /* Align to the top */
+    }
+}
+
+/* Mobile View */
+@media (max-width: 767px) {
+    .image-container,
+    .dialogue-container {
+        width: 100%; /* Full width on mobile */
+        margin-right: 0; /* Remove spacing */
+        display: block; /* Stack vertically */
+    }
+}
+
+.image-container img {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+}
+
+.dialogue-container {
+    background: white;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    padding: 15px;
+    text-align: left;
+}
+
+.dialogue-button {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 15px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.dialogue-button:hover {
+    background-color: var(--secondary-color);
+}
+
+.character {
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.flashcard-container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+.polaroid {
+    position: relative;
+    background: white;
+    padding: 10px;
+    box-shadow: var(--shadow);
+    text-align: center;
+    width: 30%;
+    transition: all 0.3s ease;
+}
+
+.polaroid img {
+    width: 100%;
+    border-radius: 5px;
+}
+
+.word {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.audio-button {
+    margin-top: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: var(--primary-color);
+}
+
+.list-view .polaroid {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.list-view .polaroid img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+.list-view .word {
+    font-size: 20px;
+    flex: 1;
+}
+
+.deck-container {
+    display: none;
+    position: relative;
+    width: 300px;
+    height: auto;
+    margin: auto;
+    overflow: hidden;
+    text-align: center;
+    background: white;
+    padding: 20px;
+    box-shadow: var(--shadow);
+    border-radius: 10px;
+}
+
+.deck-container img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.deck-word {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 15px 0;
+}
+
+.deck-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.deck-button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.view-buttons {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.view-buttons button {
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    background: var(--primary-color);
+    color: white;
+}
+
+@media (max-width: 768px) {
+    .image-container,
+    .dialogue-container {
+        width: 100%;
+        margin-right: 0;
+    }
+
+    .flashcard-container {
+        gap: 0;
+    }
+
+    .polaroid {
+        width: 33.33%;
+        box-shadow: none;
+        border-radius: 0;
+    }
+
+    .polaroid img {
+        border-radius: 0;
+    }
+
+    .word {
+        font-size: 18px;
+    }
+
+    .deck-container {
+        width: 90%;
+        height: auto;
+        padding: 15px;
+    }
+
+    .deck-word {
+        font-size: 20px;
+        margin: 10px 0;
+    }
+
+    .deck-buttons {
+        margin-top: 15px;
+    }
+
+    .deck-button {
+        padding: 8px 15px;
+    }
+}
+
+/* Translation Tooltip Styling */
+.translatable {
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.translatable:hover {
+    background-color: yellow;
+}
+
+.translatable::after {
+    content: attr(data-translation);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.translatable.active::after {
+    opacity: 1;
+}    </style>
+</head>
+<body>
+    <!-- Hamburger Menu -->
+    <div class="hamburger" onclick="toggleMenu()" aria-label="Toggle menu">☰</div>
+
+    <!-- Vertical Menu -->
+    <ul id="verticalMenu">
+        <li><a class="active" href="#">Music</a></li>
+        <li><a href="https://raphaelangelim.github.io/deck/">Voyage</a></li>
+    </ul>
+
+    <!-- Main Content -->
+    <div id="content">
+        <!-- Image Section (Concert) -->
+        <div class="image-container">
+            <img src="assets/concert.jpg alt="Concert Image" />
+        </div>
+
+        <!-- Dialogue Section -->
+        <div class="dialogue-container">
+            <h3>Dialogue</h3>
+            <div id="dialogue-box" class="dialogue"></div>
+            <button class="dialogue-button" onclick="playDialogue()" aria-label="Play dialogue">▶ Écouter</button>
+            <button class="dialogue-button" onclick="pauseDialogue()" aria-label="Pause dialogue">⏸ Pause</button>
+        </div>
+
+        <!-- View Buttons -->
+        <div class="view-buttons">
+            <button onclick="switchView('grid')" aria-label="Switch to grid view">📸 Grid View</button>
+            <button onclick="switchView('list')" aria-label="Switch to list view">📋 List View</button>
+            <button onclick="switchView('deck')" aria-label="Switch to deck view">📖 Deck View</button>
+        </div>
+
+        <!-- Flashcards Section -->
+        <div id="flashcards" class="flashcard-container"></div>
+
+        <!-- Deck View (Instagram Style) -->
+        <div id="deck-container" class="deck-container">
+            <img id="deck-image" src="https://via.placeholder.com/150" alt="Deck Image">
+            <div id="deck-word" class="deck-word"></div>
+            <button class="audio-button" onclick="playDeckAudio()" aria-label="Play audio">🔊</button>
+            <div class="deck-buttons">
+                <button class="deck-button" onclick="prevCard()" aria-label="Previous card">⬅</button>
+                <button class="deck-button" onclick="nextCard()" aria-label="Next card">➡</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="https://code.responsivevoice.org/responsivevoice.js"></script>
+    <script>
+        // Function to toggle the vertical menu
+        function toggleMenu() {
+            const verticalMenu = document.getElementById("verticalMenu");
+            const content = document.getElementById("content");
+
+            verticalMenu.classList.toggle("active");
+            content.classList.toggle("shifted");
+        }
+
+        // Dialogue Section
+        const dialogue = [
+            {
+                speaker: "Marie",
+                text: "Salut Jean ! Tu as déjà assisté à un concert récemment ?",
+                translation: "Hi Jean! Have you been to a concert recently?",
+                words: [
+                    { text: "Salut", translation: "Hi" },
+                    { text: "Jean", translation: "Jean" },
+                    { text: "!", translation: "!" },
+                    { text: "Tu", translation: "Have you" },
+                    { text: "as", translation: "have" },
+                    { text: "déjà", translation: "already" },
+                    { text: "assisté", translation: "been" },
+                    { text: "à", translation: "to" },
+                    { text: "un", translation: "a" },
+                    { text: "concert", translation: "concert" },
+                    { text: "récemment", translation: "recently" },
+                    { text: "?", translation: "?" }
+                ]
+            },
+            {
+                speaker: "Jean",
+                text: "Oui, j’ai vu un groupe de rock la semaine dernière. C’était incroyable !",
+                translation: "Yes, I saw a rock band last week. It was amazing!",
+                words: [
+                    { text: "Oui", translation: "Yes" },
+                    { text: ",", translation: "," },
+                    { text: "j’ai", translation: "I" },
+                    { text: "vu", translation: "saw" },
+                    { text: "un", translation: "a" },
+                    { text: "groupe", translation: "band" },
+                    { text: "de", translation: "of" },
+                    { text: "rock", translation: "rock" },
+                    { text: "la", translation: "the" },
+                    { text: "semaine", translation: "week" },
+                    { text: "dernière", translation: "last" },
+                    { text: ".", translation: "." },
+                    { text: "C’était", translation: "It was" },
+                    { text: "incroyable", translation: "amazing" },
+                    { text: "!", translation: "!" }
+                ]
+            },
+            {
+                speaker: "Marie",
+                text: "Génial ! Quel groupe c’était ?",
+                translation: "Awesome! Which band was it?",
+                words: [
+                    { text: "Génial", translation: "Awesome" },
+                    { text: "!", translation: "!" },
+                    { text: "Quel", translation: "Which" },
+                    { text: "groupe", translation: "band" },
+                    { text: "c’était", translation: "was it" },
+                    { text: "?", translation: "?" }
+                ]
+            },
+            {
+                speaker: "Jean",
+                text: "C’était « Les Chats Noirs ». Ils ont joué pendant deux heures sans pause !",
+                translation: "It was 'The Black Cats'. They played for two hours without a break!",
+                words: [
+                    { text: "C’était", translation: "It was" },
+                    { text: "«", translation: "“" },
+                    { text: "Les", translation: "The" },
+                    { text: "Chats", translation: "Cats" },
+                    { text: "Noirs", translation: "Black" },
+                    { text: "»", translation: "”" },
+                    { text: ".", translation: "." },
+                    { text: "Ils", translation: "They" },
+                    { text: "ont", translation: "have" },
+                    { text: "joué", translation: "played" },
+                    { text: "pendant", translation: "for" },
+                    { text: "deux", translation: "two" },
+                    { text: "heures", translation: "hours" },
+                    { text: "sans", translation: "without" },
+                    { text: "pause", translation: "a break" },
+                    { text: "!", translation: "!" }
+                ]
+            },
+            {
+                speaker: "Marie",
+                text: "Wow, ça devait être fatigant pour eux !",
+                translation: "Wow, that must have been tiring for them!",
+                words: [
+                    { text: "Wow", translation: "Wow" },
+                    { text: ",", translation: "," },
+                    { text: "ça", translation: "that" },
+                    { text: "devait", translation: "must" },
+                    { text: "être", translation: "have been" },
+                    { text: "fatigant", translation: "tiring" },
+                    { text: "pour", translation: "for" },
+                    { text: "eux", translation: "them" },
+                    { text: "!", translation: "!" }
+                ]
+            },
+            {
+                speaker: "Jean",
+                text: "Oui, mais ils avaient tellement d’énergie ! Et toi, tu préfères les concerts ou les festivals ?",
+                translation: "Yes, but they had so much energy! And you, do you prefer concerts or festivals?",
+                words: [
+                    { text: "Oui", translation: "Yes" },
+                    { text: ",", translation: "," },
+                    { text: "mais", translation: "but" },
+                    { text: "ils", translation: "they" },
+                    { text: "avaient", translation: "had" },
+                    { text: "tellement", translation: "so much" },
+                    { text: "d’énergie", translation: "energy" },
+                    { text: "!", translation: "!" },
+                    { text: "Et", translation: "And" },
+                    { text: "toi", translation: "you" },
+                    { text: ",", translation: "," },
+                    { text: "tu", translation: "do you" },
+                    { text: "préfères", translation: "prefer" },
+                    { text: "les", translation: "the" },
+                    { text: "concerts", translation: "concerts" },
+                    { text: "ou", translation: "or" },
+                    { text: "les", translation: "the" },
+                    { text: "festivals", translation: "festivals" },
+                    { text: "?", translation: "?" }
+                ]
+            },
+            {
+                speaker: "Marie",
+                text: "Je préfère les festivals. Il y a plus d’ambiance et plusieurs artistes !",
+                translation: "I prefer festivals. There’s more atmosphere and multiple artists!",
+                words: [
+                    { text: "Je", translation: "I" },
+                    { text: "préfère", translation: "prefer" },
+                    { text: "les", translation: "the" },
+                    { text: "festivals", translation: "festivals" },
+                    { text: ".", translation: "." },
+                    { text: "Il", translation: "There" },
+                    { text: "y", translation: "is" },
+                    { text: "a", translation: "more" },
+                    { text: "plus", translation: "more" },
+                    { text: "d’ambiance", translation: "atmosphere" },
+                    { text: "et", translation: "and" },
+                    { text: "plusieurs", translation: "multiple" },
+                    { text: "artistes", translation: "artists" },
+                    { text: "!", translation: "!" }
+                ]
+            }
+        ];
+
+        let synth = window.speechSynthesis;
+        let i = 0;
+        let isPaused = false;
+
+        // Function to select a French voice
+        function getFrenchVoice() {
+            const voices = window.speechSynthesis.getVoices();
+            const frenchVoice = voices.find(voice => voice.lang === "fr-FR" && voice.name.includes("Google Français")) ||
+                                voices.find(voice => voice.lang === "fr-FR" && voice.name.includes("French")) ||
+                                voices.find(voice => voice.lang === "fr-FR");
+
+            if (frenchVoice) {
+                return frenchVoice;
+            } else {
+                console.warn("No French voice found. Falling back to default voice.");
+                return voices[0];
+            }
+        }
+
+        // Load the dialogue into the dialogue box
+        function loadDialogue() {
+            let dialogueBox = document.getElementById("dialogue-box");
+            dialogueBox.innerHTML = "";
+            dialogue.forEach(line => {
+                let p = document.createElement("p");
+                p.innerHTML = `<span class="character">${line.speaker} :</span> `;
+                line.words.forEach(word => {
+                    p.innerHTML += `<span class="translatable" data-translation="${word.translation}">${word.text}</span> `;
+                });
+                dialogueBox.appendChild(p);
+            });
+        }
+
+        // Play the dialogue
+        function playDialogue() {
+            if (isPaused) {
+                isPaused = false;
+                speakNextLine();
+                return;
+            }
+
+            i = 0;
+            isPaused = false;
+            speakNextLine();
+        }
+
+        // Pause the dialogue
+        function pauseDialogue() {
+            isPaused = true;
+            synth.cancel();
+        }
+
+        // Speak the next line of dialogue
+        function speakNextLine() {
+            if (i < dialogue.length && !isPaused) {
+                let msg = new SpeechSynthesisUtterance(dialogue[i].text);
+                msg.lang = "fr-FR";
+                msg.rate = 0.7;
+                msg.pitch = 1.2;
+
+                const frenchVoice = getFrenchVoice();
+                if (frenchVoice) {
+                    msg.voice = frenchVoice;
+                }
+
+                synth.cancel();
+
+                msg.onend = () => {
+                    if (!isPaused) {
+                        i++;
+                        if (i < dialogue.length) {
+                            setTimeout(speakNextLine, 1000);
+                        }
+                    }
+                };
+
+                synth.speak(msg);
+            }
+        }
+
+        // Flashcards Section
+        let currentDeckIndex = 0;
+        const flashcards = [
+            { word: "Concert", img: "assets/concert.jpg", translation: "Concert" },
+            { word: "Festival", img: "assets/festival.jpg", translation: "Festival" },
+            { word: "Groupe", img: "assets/band.jpg", translation: "Band" },
+            { word: "Chanteur/Chanteuse", img: "assets/singer.jpg", translation: "Singer" },
+            { word: "Guitare", img: "assets/guitar.jpg", translation: "Guitar" },
+            { word: "Batterie", img: "assets/drums.jpg", translation: "Drums" },
+            { word: "Scène", img: "assets/stage.jpg", translation: "Stage" },
+            { word: "Public", img: "assets/audience.jpg", translation: "Audience" },
+            { word: "Billet", img: "assets/ticket.jpg", translation: "Ticket" }
+        ];
+
+        // Load the flashcards into the flashcard container
+        function loadFlashcards() {
+            let flashcardContainer = document.getElementById("flashcards");
+            flashcardContainer.innerHTML = "";
+            flashcards.forEach(item => {
+                let card = document.createElement("div");
+                card.classList.add("polaroid");
+                card.innerHTML = `
+                    <img src="${item.img}" alt="${item.word}" onerror="this.src='https://via.placeholder.com/150'">
+                    <div class="word translatable" data-translation="${item.translation}">${item.word}</div>
+                    <button class="audio-button" onclick="playAudio('${item.word}')" aria-label="Play audio for ${item.word}">🔊</button>
+                `;
+                flashcardContainer.appendChild(card);
+            });
+        }
+
+        // Play audio for a given word
+        function playAudio(word) {
+            if (typeof responsiveVoice !== "undefined") {
+                responsiveVoice.speak(word, "French Female", { rate: 0.7, pitch: 1.2 });
+            } else {
+                console.error("ResponsiveVoice library not loaded.");
+            }
+        }
+
+        // Add click functionality for translations
+        document.addEventListener('click', (e) => {
+            const translatable = e.target.closest('.translatable');
+            if (translatable) {
+                e.stopPropagation();
+                translatable.classList.toggle('active');
+            } else {
+                document.querySelectorAll('.translatable').forEach(word => {
+                    word.classList.remove('active');
+                });
+            }
+        });
+
+        // Function to switch between grid, list, and deck views
+        function switchView(view) {
+            const flashcardContainer = document.getElementById("flashcards");
+            const deckContainer = document.getElementById("deck-container");
+
+            deckContainer.style.display = "none";
+            flashcardContainer.classList.remove("grid-view", "list-view", "deck-view");
+
+            if (view === "grid") {
+                flashcardContainer.classList.add("grid-view");
+                flashcardContainer.style.display = "flex";
+            } else if (view === "list") {
+                flashcardContainer.classList.add("list-view");
+                flashcardContainer.style.display = "flex";
+            } else if (view === "deck") {
+                flashcardContainer.style.display = "none";
+                deckContainer.style.display = "block";
+                loadDeckView();
+            }
+        }
+
+        // Function to load the deck view
+        function loadDeckView() {
+            const deckImage = document.getElementById("deck-image");
+            const deckWord = document.getElementById("deck-word");
+            const currentCard = flashcards[currentDeckIndex];
+
+            deckImage.src = currentCard.img;
+            deckWord.innerHTML = `<span class="translatable" data-translation="${currentCard.translation}">${currentCard.word}</span>`;
+        }
+
+        // Function to navigate to the previous card in the deck
+        function prevCard() {
+            if (currentDeckIndex > 0) {
+                currentDeckIndex--;
+                loadDeckView();
+            }
+        }
+
+        // Function to navigate to the next card in the deck
+        function nextCard() {
+            if (currentDeckIndex < flashcards.length - 1) {
+                currentDeckIndex++;
+                loadDeckView();
+            }
+        }
+
+        // Function to play audio for the current deck card
+        function playDeckAudio() {
+            const currentCard = flashcards[currentDeckIndex];
+            playAudio(currentCard.word);
+        }
+
+        // Load the dialogue and flashcards when the page loads
+        window.onload = () => {
+            loadDialogue();
+            loadFlashcards();
+            switchView('grid'); // Default to grid view
+        };
+    </script>
+</body>
+</html>
