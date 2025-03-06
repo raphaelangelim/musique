@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Travel Flashcards</title>
+    <title>Music, Shows, and Concerts Flashcards</title>
     <style>
-        :root {
+:root {
     --primary-color: #007AFF;
     --secondary-color: #005ecb;
     --background-color: #fafafa;
@@ -347,8 +347,7 @@ body {
 
 .translatable.active::after {
     opacity: 1;
-}
-    </style>
+}    </style>
 </head>
 <body>
     <!-- Hamburger Menu -->
@@ -356,15 +355,15 @@ body {
 
     <!-- Vertical Menu -->
     <ul id="verticalMenu">
-        <li><a href="https://raphaelangelim.github.io/musique/">Music</a></li>
-        <li><a class="active" href="https://raphaelangelim.github.io/deck/">Voyage</a></li>
+        <li><a class="active" href="https://raphaelangelim.github.io/musique/">Music</a></li>
+        <li><a href="https://raphaelangelim.github.io/deck/">Voyage</a></li>
     </ul>
 
     <!-- Main Content -->
     <div id="content">
-        <!-- Image Section (Breakfast) -->
+        <!-- Image Section (Concert) -->
         <div class="image-container">
-            <img src="assets/breakfast.webp" alt="Breakfast Image" />
+            <img src="assets/musique.jpg" alt="Concert Image" />
         </div>
 
         <!-- Dialogue Section -->
@@ -411,283 +410,146 @@ body {
 
         // Dialogue Section
         const dialogue = [
-           {
-        speaker: "Paul",
-        text: "Salut Léa ! Tu as prévu de partir quelque part bientôt ?",
-        translation: "Hi Léa! Do you have plans to go somewhere soon?",
-        words: [
-            { text: "Salut", translation: "Hi" },
-            { text: "Léa", translation: "Léa" },
-            { text: "!", translation: "!" },
-            { text: "Tu", translation: "Do you" },
-            { text: "as", translation: "have" },
-            { text: "prévu", translation: "planned" },
-            { text: "de", translation: "to" },
-            { text: "partir", translation: "go" },
-            { text: "quelque part", translation: "somewhere" },
-            { text: "bientôt", translation: "soon" },
-            { text: "?", translation: "?" }
-        ]
-    },
-    {
-        speaker: "Léa",
-        text: "Oui, je vais à Lyon le week-end prochain ! J'hésite encore entre prendre le train ou la voiture.",
-        translation: "Yes, I'm going to Lyon next weekend! I'm still hesitating between taking the train or the car.",
-        words: [
-            { text: "Oui", translation: "Yes" },
-            { text: ",", translation: "," },
-            { text: "je", translation: "I" },
-            { text: "vais", translation: "am going" },
-            { text: "à", translation: "to" },
-            { text: "Lyon", translation: "Lyon" },
-            { text: "le", translation: "the" },
-            { text: "week-end", translation: "weekend" },
-            { text: "prochain", translation: "next" },
-            { text: "!", translation: "!" },
-            { text: "J'hésite", translation: "I'm hesitating" },
-            { text: "encore", translation: "still" },
-            { text: "entre", translation: "between" },
-            { text: "prendre", translation: "taking" },
-            { text: "le", translation: "the" },
-            { text: "train", translation: "train" },
-            { text: "ou", translation: "or" },
-            { text: "la", translation: "the" },
-            { text: "voiture", translation: "car" },
-            { text: ".", translation: "." }
-        ]
-    },
-    {
-        speaker: "Paul",
-        text: "Ah, ça dépend. Si tu veux éviter les embouteillages et arriver rapidement, le train est une bonne option.",
-        translation: "Ah, it depends. If you want to avoid traffic and arrive quickly, the train is a good option.",
-        words: [
-            { text: "Ah", translation: "Ah" },
-            { text: ",", translation: "," },
-            { text: "ça", translation: "it" },
-            { text: "dépend", translation: "depends" },
-            { text: ".", translation: "." },
-            { text: "Si", translation: "If" },
-            { text: "tu", translation: "you" },
-            { text: "veux", translation: "want" },
-            { text: "éviter", translation: "to avoid" },
-            { text: "les", translation: "the" },
-            { text: "embouteillages", translation: "traffic" },
-            { text: "et", translation: "and" },
-            { text: "arriver", translation: "arrive" },
-            { text: "rapidement", translation: "quickly" },
-            { text: ",", translation: "," },
-            { text: "le", translation: "the" },
-            { text: "train", translation: "train" },
-            { text: "est", translation: "is" },
-            { text: "une", translation: "a" },
-            { text: "bonne", translation: "good" },
-            { text: "option", translation: "option" },
-            { text: ".", translation: "." }
-        ]
-    },
-    {
-        speaker: "Léa",
-        text: "C’est vrai, mais avec la voiture, j’aurais plus de liberté pour me déplacer une fois sur place.",
-        translation: "That's true, but with the car, I would have more freedom to move around once there.",
-        words: [
-            { text: "C’est", translation: "That's" },
-            { text: "vrai", translation: "true" },
-            { text: ",", translation: "," },
-            { text: "mais", translation: "but" },
-            { text: "avec", translation: "with" },
-            { text: "la", translation: "the" },
-            { text: "voiture", translation: "car" },
-            { text: ",", translation: "," },
-            { text: "j’aurais", translation: "I would have" },
-            { text: "plus", translation: "more" },
-            { text: "de", translation: "of" },
-            { text: "liberté", translation: "freedom" },
-            { text: "pour", translation: "to" },
-            { text: "me", translation: "myself" },
-            { text: "déplacer", translation: "move around" },
-            { text: "une", translation: "once" },
-            { text: "fois", translation: "there" },
-            { text: "sur", translation: "on" },
-            { text: "place", translation: "place" },
-            { text: ".", translation: "." }
-        ]
-    },
-    {
-        speaker: "Paul",
-        text: "Tu pourrais aussi louer une voiture directement à Lyon, comme ça, tu voyages en train et tu conduis sur place.",
-        translation: "You could also rent a car directly in Lyon, so you travel by train and drive there.",
-        words: [
-            { text: "Tu", translation: "You" },
-            { text: "pourrais", translation: "could" },
-            { text: "aussi", translation: "also" },
-            { text: "louer", translation: "rent" },
-            { text: "une", translation: "a" },
-            { text: "voiture", translation: "car" },
-            { text: "directement", translation: "directly" },
-            { text: "à", translation: "in" },
-            { text: "Lyon", translation: "Lyon" },
-            { text: ",", translation: "," },
-            { text: "comme", translation: "so" },
-            { text: "ça", translation: "that" },
-            { text: ",", translation: "," },
-            { text: "tu", translation: "you" },
-            { text: "voyages", translation: "travel" },
-            { text: "en", translation: "by" },
-            { text: "train", translation: "train" },
-            { text: "et", translation: "and" },
-            { text: "tu", translation: "you" },
-            { text: "conduis", translation: "drive" },
-            { text: "sur", translation: "there" },
-            { text: "place", translation: "place" },
-            { text: ".", translation: "." }
-        ]
-    },
-    {
-        speaker: "Léa",
-        text: "Pas bête ! Et toi, tu as des voyages prévus ?",
-        translation: "Not bad! And you, do you have any trips planned?",
-        words: [
-            { text: "Pas", translation: "Not" },
-            { text: "bête", translation: "bad" },
-            { text: "!", translation: "!" },
-            { text: "Et", translation: "And" },
-            { text: "toi", translation: "you" },
-            { text: ",", translation: "," },
-            { text: "tu", translation: "do you" },
-            { text: "as", translation: "have" },
-            { text: "des", translation: "any" },
-            { text: "voyages", translation: "trips" },
-            { text: "prévus", translation: "planned" },
-            { text: "?", translation: "?" }
-        ]
-    },
-    {
-        speaker: "Paul",
-        text: "Oui, je pars en Espagne le mois prochain. J’hésite entre l’avion et le bus.",
-        translation: "Yes, I'm going to Spain next month. I'm hesitating between the plane and the bus.",
-        words: [
-            { text: "Oui", translation: "Yes" },
-            { text: ",", translation: "," },
-            { text: "je", translation: "I" },
-            { text: "pars", translation: "am going" },
-            { text: "en", translation: "to" },
-            { text: "Espagne", translation: "Spain" },
-            { text: "le", translation: "the" },
-            { text: "mois", translation: "month" },
-            { text: "prochain", translation: "next" },
-            { text: ".", translation: "." },
-            { text: "J’hésite", translation: "I'm hesitating" },
-            { text: "entre", translation: "between" },
-            { text: "l’avion", translation: "the plane" },
-            { text: "et", translation: "and" },
-            { text: "le", translation: "the" },
-            { text: "bus", translation: "bus" },
-            { text: ".", translation: "." }
-        ]
-    },
-    {
-        speaker: "Léa",
-        text: "Le bus, c’est économique, mais c’est long…",
-        translation: "The bus is economical, but it's long...",
-        words: [
-            { text: "Le", translation: "The" },
-            { text: "bus", translation: "bus" },
-            { text: ",", translation: "," },
-            { text: "c’est", translation: "is" },
-            { text: "économique", translation: "economical" },
-            { text: ",", translation: "," },
-            { text: "mais", translation: "but" },
-            { text: "c’est", translation: "it's" },
-            { text: "long", translation: "long" },
-            { text: "…", translation: "..." }
-        ]
-    },
-    {
-        speaker: "Paul",
-        text: "Oui, et l’avion est plus rapide, mais il faut arriver tôt à l’aéroport et attendre.",
-        translation: "Yes, and the plane is faster, but you have to arrive early at the airport and wait.",
-        words: [
-            { text: "Oui", translation: "Yes" },
-            { text: ",", translation: "," },
-            { text: "et", translation: "and" },
-            { text: "l’avion", translation: "the plane" },
-            { text: "est", translation: "is" },
-            { text: "plus", translation: "faster" },
-            { text: "rapide", translation: "quick" },
-            { text: ",", translation: "," },
-            { text: "mais", translation: "but" },
-            { text: "il", translation: "you" },
-            { text: "faut", translation: "have to" },
-            { text: "arriver", translation: "arrive" },
-            { text: "tôt", translation: "early" },
-            { text: "à", translation: "at" },
-            { text: "l’aéroport", translation: "the airport" },
-            { text: "et", translation: "and" },
-            { text: "attendre", translation: "wait" },
-            { text: ".", translation: "." }
-        ]
-    },
-    {
-        speaker: "Léa",
-        text: "C’est vrai. Tout dépend de ton budget et de ton emploi du temps.",
-        translation: "That's true. It all depends on your budget and schedule.",
-        words: [
-            { text: "C’est", translation: "That's" },
-            { text: "vrai", translation: "true" },
-            { text: ".", translation: "." },
-            { text: "Tout", translation: "It all" },
-            { text: "dépend", translation: "depends" },
-            { text: "de", translation: "on" },
-            { text: "ton", translation: "your" },
-            { text: "budget", translation: "budget" },
-            { text: "et", translation: "and" },
-            { text: "de", translation: "on" },
-            { text: "ton", translation: "your" },
-            { text: "emploi", translation: "schedule" },
-            { text: "du", translation: "of" },
-            { text: "temps", translation: "time" },
-            { text: ".", translation: "." }
-        ]
-    },
-    {
-        speaker: "Paul",
-        text: "Exactement ! Bon, je vais comparer les prix et voir ce qui est le plus pratique.",
-        translation: "Exactly! Well, I'll compare prices and see what's most convenient.",
-        words: [
-            { text: "Exactement", translation: "Exactly" },
-            { text: "!", translation: "!" },
-            { text: "Bon", translation: "Well" },
-            { text: ",", translation: "," },
-            { text: "je", translation: "I" },
-            { text: "vais", translation: "will" },
-            { text: "comparer", translation: "compare" },
-            { text: "les", translation: "the" },
-            { text: "prix", translation: "prices" },
-            { text: "et", translation: "and" },
-            { text: "voir", translation: "see" },
-            { text: "ce", translation: "what" },
-            { text: "qui", translation: "is" },
-            { text: "est", translation: "the" },
-            { text: "le", translation: "most" },
-            { text: "plus", translation: "convenient" },
-            { text: "pratique", translation: "practical" },
-            { text: ".", translation: "." }
-        ]
-    },
-    {
-        speaker: "Léa",
-        text: "Bonne idée ! Tiens-moi au courant !",
-        translation: "Good idea! Keep me posted!",
-        words: [
-            { text: "Bonne", translation: "Good" },
-            { text: "idée", translation: "idea" },
-            { text: "!", translation: "!" },
-            { text: "Tiens-moi", translation: "Keep me" },
-            { text: "au", translation: "posted" },
-            { text: "courant", translation: "informed" },
-            { text: "!", translation: "!" }
-        ]
-    }
+            {
+                speaker: "Marie",
+                text: "Salut Jean ! Tu as déjà assisté à un concert récemment ?",
+                translation: "Hi Jean! Have you been to a concert recently?",
+                words: [
+                    { text: "Salut", translation: "Hi" },
+                    { text: "Jean", translation: "Jean" },
+                    { text: "!", translation: "!" },
+                    { text: "Tu", translation: "Have you" },
+                    { text: "as", translation: "have" },
+                    { text: "déjà", translation: "already" },
+                    { text: "assisté", translation: "been" },
+                    { text: "à", translation: "to" },
+                    { text: "un", translation: "a" },
+                    { text: "concert", translation: "concert" },
+                    { text: "récemment", translation: "recently" },
+                    { text: "?", translation: "?" }
+                ]
+            },
+            {
+                speaker: "Jean",
+                text: "Oui, j’ai vu un groupe de rock la semaine dernière. C’était incroyable !",
+                translation: "Yes, I saw a rock band last week. It was amazing!",
+                words: [
+                    { text: "Oui", translation: "Yes" },
+                    { text: ",", translation: "," },
+                    { text: "j’ai", translation: "I" },
+                    { text: "vu", translation: "saw" },
+                    { text: "un", translation: "a" },
+                    { text: "groupe", translation: "band" },
+                    { text: "de", translation: "of" },
+                    { text: "rock", translation: "rock" },
+                    { text: "la", translation: "the" },
+                    { text: "semaine", translation: "week" },
+                    { text: "dernière", translation: "last" },
+                    { text: ".", translation: "." },
+                    { text: "C’était", translation: "It was" },
+                    { text: "incroyable", translation: "amazing" },
+                    { text: "!", translation: "!" }
+                ]
+            },
+            {
+                speaker: "Marie",
+                text: "Génial ! Quel groupe c’était ?",
+                translation: "Awesome! Which band was it?",
+                words: [
+                    { text: "Génial", translation: "Awesome" },
+                    { text: "!", translation: "!" },
+                    { text: "Quel", translation: "Which" },
+                    { text: "groupe", translation: "band" },
+                    { text: "c’était", translation: "was it" },
+                    { text: "?", translation: "?" }
+                ]
+            },
+            {
+                speaker: "Jean",
+                text: "C’était « Les Chats Noirs ». Ils ont joué pendant deux heures sans pause !",
+                translation: "It was 'The Black Cats'. They played for two hours without a break!",
+                words: [
+                    { text: "C’était", translation: "It was" },
+                    { text: "«", translation: "“" },
+                    { text: "Les", translation: "The" },
+                    { text: "Chats", translation: "Cats" },
+                    { text: "Noirs", translation: "Black" },
+                    { text: "»", translation: "”" },
+                    { text: ".", translation: "." },
+                    { text: "Ils", translation: "They" },
+                    { text: "ont", translation: "have" },
+                    { text: "joué", translation: "played" },
+                    { text: "pendant", translation: "for" },
+                    { text: "deux", translation: "two" },
+                    { text: "heures", translation: "hours" },
+                    { text: "sans", translation: "without" },
+                    { text: "pause", translation: "a break" },
+                    { text: "!", translation: "!" }
+                ]
+            },
+            {
+                speaker: "Marie",
+                text: "Wow, ça devait être fatigant pour eux !",
+                translation: "Wow, that must have been tiring for them!",
+                words: [
+                    { text: "Wow", translation: "Wow" },
+                    { text: ",", translation: "," },
+                    { text: "ça", translation: "that" },
+                    { text: "devait", translation: "must" },
+                    { text: "être", translation: "have been" },
+                    { text: "fatigant", translation: "tiring" },
+                    { text: "pour", translation: "for" },
+                    { text: "eux", translation: "them" },
+                    { text: "!", translation: "!" }
+                ]
+            },
+            {
+                speaker: "Jean",
+                text: "Oui, mais ils avaient tellement d’énergie ! Et toi, tu préfères les concerts ou les festivals ?",
+                translation: "Yes, but they had so much energy! And you, do you prefer concerts or festivals?",
+                words: [
+                    { text: "Oui", translation: "Yes" },
+                    { text: ",", translation: "," },
+                    { text: "mais", translation: "but" },
+                    { text: "ils", translation: "they" },
+                    { text: "avaient", translation: "had" },
+                    { text: "tellement", translation: "so much" },
+                    { text: "d’énergie", translation: "energy" },
+                    { text: "!", translation: "!" },
+                    { text: "Et", translation: "And" },
+                    { text: "toi", translation: "you" },
+                    { text: ",", translation: "," },
+                    { text: "tu", translation: "do you" },
+                    { text: "préfères", translation: "prefer" },
+                    { text: "les", translation: "the" },
+                    { text: "concerts", translation: "concerts" },
+                    { text: "ou", translation: "or" },
+                    { text: "les", translation: "the" },
+                    { text: "festivals", translation: "festivals" },
+                    { text: "?", translation: "?" }
+                ]
+            },
+            {
+                speaker: "Marie",
+                text: "Je préfère les festivals. Il y a plus d’ambiance et plusieurs artistes !",
+                translation: "I prefer festivals. There’s more atmosphere and multiple artists!",
+                words: [
+                    { text: "Je", translation: "I" },
+                    { text: "préfère", translation: "prefer" },
+                    { text: "les", translation: "the" },
+                    { text: "festivals", translation: "festivals" },
+                    { text: ".", translation: "." },
+                    { text: "Il", translation: "There" },
+                    { text: "y", translation: "is" },
+                    { text: "a", translation: "more" },
+                    { text: "plus", translation: "more" },
+                    { text: "d’ambiance", translation: "atmosphere" },
+                    { text: "et", translation: "and" },
+                    { text: "plusieurs", translation: "multiple" },
+                    { text: "artistes", translation: "artists" },
+                    { text: "!", translation: "!" }
+                ]
+            }
         ];
 
         let synth = window.speechSynthesis;
@@ -773,15 +635,15 @@ body {
         // Flashcards Section
         let currentDeckIndex = 0;
         const flashcards = [
-            { word: "S'asseoir", img: "assets/asseoir.jpg", translation: "To sit down" },
-            { word: "Lâcher prise", img: "assets/letting_go.jpg", translation: "To let go" },
-            { word: "Maîtriser", img: "assets/master_control.jpg", translation: "To master" },
-            { word: "Battre", img: "assets/beat_fight.jpg", translation: "To beat" },
-            { word: "Alléger", img: "assets/lighten_relieve.jpg", translation: "To lighten" },
-            { word: "Lourd(e)", img: "assets/heavy.jpg", translation: "Heavy" },
-            { word: "Moitié", img: "assets/half.jpg", translation: "Half" },
-            { word: "Épaules", img: "assets/shoulders.jpg", translation: "Shoulders" },
-            { word: "Faire du stop / l’auto-stop", img: "assets/stop.jpg", translation: "To hitchhike" }
+            { word: "Concert", img: "assets/concert.jpg", translation: "Concert" },
+            { word: "Festival", img: "assets/festival.jpg", translation: "Festival" },
+            { word: "Groupe", img: "assets/band.jpg", translation: "Band" },
+            { word: "Chanteur/Chanteuse", img: "assets/singer.jpg", translation: "Singer" },
+            { word: "Guitare", img: "assets/guitar.jpg", translation: "Guitar" },
+            { word: "Batterie", img: "assets/drums.jpg", translation: "Drums" },
+            { word: "Scène", img: "assets/stage.jpg", translation: "Stage" },
+            { word: "Public", img: "assets/audience.jpg", translation: "Audience" },
+            { word: "Billet", img: "assets/ticket.jpg", translation: "Ticket" }
         ];
 
         // Load the flashcards into the flashcard container
